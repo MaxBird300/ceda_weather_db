@@ -7,8 +7,9 @@ all weather data within the query radius.
 
 @author: maxbird
 """
-from weather_query_backend_V3 import weatherDatabase
+from weather_query_backend import weatherDatabase
 import pandas as pd
+
 ################## USER INPUTS ###############################################
 
 lat = 51.5042 # latitude coordinate of query location
@@ -37,34 +38,6 @@ weatherData, stationMetaData = weatherQuery.getWeatherData(start, end, 0)
 # insolationData, stationMetaData = weatherQuery.getInsolationData(start, end, 1)
 
 
-
-# work for margarethe
-
-# allWeatherData = weatherData
-
-# for df in [rainfallData, insolationData]:
-#     allWeatherData = allWeatherData.merge(df, how='outer', on='Timestamp')
-# df = allWeatherData.iloc[:,[0,6,7,8,10,12,14]]
-# df = df.set_index("Timestamp")
-
-
-# resampledMax = df.resample("D").max().to_excel("./Data for Margrethe/maximum daily values.xlsx")
-# resampledAve = df.resample("D").mean().to_excel("./Data for Margrethe/average daily values.xlsx")
-# resampledMin = df.resample("D").min().to_excel("./Data for Margrethe/minimum daily values.xlsx")
-
-# resampledMax = df.resample("M").max().to_excel("./Data for Margrethe/maximum monthly values.xlsx")
-# resampledAve = df.resample("M").mean().to_excel("./Data for Margrethe/average monthly values.xlsx")
-# resampledMin = df.resample("M").min().to_excel("./Data for Margrethe/minimum monthly values.xlsx")
-
-## The below line will count the number of missing entries for each weather type and sotre the results in a new dataframe called missing_data
-# missing_data = rainfallData.isna().sum()
-
-# ## The below for loop will print the percentage completness for each weather variable
-# for col in list(rainfallData.columns): 
-#     percent_complete = ((len(rainfallData) - missing_data[col])/len(rainfallData))*100
-#     print(col + ' completeness: %.1f' % (percent_complete) + "%")
-
-# weather.to_excel(filename + '.xlsx', index=False) # uncomment this line if you want to save the weather data query as an excel document
 
 '''
 Manipulating the data you have just queried. Here are some useful links:

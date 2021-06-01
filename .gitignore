@@ -1,3 +1,4 @@
 *.txt
 *.sqlite
 /Databases/config_private.py
+__pycache__

@@ -20,8 +20,10 @@ import sqlite3
 import numpy as np
 
 
-startYear = 2000
+startYear = 2021
 endYear = 2021
+# databaseName = 'Weather_DB.sqlite'
+databaseName = 'test.sqlite'
 
 rainfallStations = []
 weatherStations = []
@@ -29,102 +31,102 @@ insolationStations = []
 masterStations = []
 
 # get ids for rainfall stations
-for year in range(startYear, endYear+1): # range function goes up to but NOT including the last value
-    print("Finding rainfall stations for %s" % (year))
-    location = './raw_data/midas_rainhrly_' + str(year) + '01-' + str(year) + '12.txt' # raw data path
+# for year in range(startYear, endYear+1): # range function goes up to but NOT including the last value
+#     print("Finding rainfall stations for %s" % (year))
+#     location = './raw_data/midas_rainhrly_' + str(year) + '01-' + str(year) + '12.txt' # raw data path
     
     
-    data = pd.read_csv(location, sep=",", header=None, usecols=[0,3,4,5,6,8]) # imports the text file  
+#     data = pd.read_csv(location, sep=",", header=None, usecols=[0,3,4,5,6,8]) # imports the text file  
 
-    # remove daily readings, leave only hourly
-    mask = data.iloc[:,1] == 1
-    data = data[mask]
+#     # remove daily readings, leave only hourly
+#     mask = data.iloc[:,1] == 1
+#     data = data[mask]
     
-    # Below two lines remove all data points which have not been quallity checked by MIDAS
-    mask = data.iloc[:,2] == 1
-    data = data[mask]
+#     # Below two lines remove all data points which have not been quallity checked by MIDAS
+#     mask = data.iloc[:,2] == 1
+#     data = data[mask]
     
-    # take data only from SREW - https://artefacts.ceda.ac.uk/badc_datadocs/ukmo-midas/met_domain.html
-    mask = data.iloc[:,3] == " SREW"
-    data = data[mask]
+#     # take data only from SREW - https://artefacts.ceda.ac.uk/badc_datadocs/ukmo-midas/met_domain.html
+#     mask = data.iloc[:,3] == " SREW"
+#     data = data[mask]
     
-    for station in data.iloc[:,4]:
-        if station not in rainfallStations:
-            rainfallStations.append(station)        
+#     for station in data.iloc[:,4]:
+#         if station not in rainfallStations:
+#             rainfallStations.append(station)        
         
-# get ids for insolation stations       
-for year in range(startYear, endYear+1): # range function goes up to but NOT including the last value
-    print("Finding insolation stations for %s" % (year))
-    location = './raw_data/midas_radtob_' + str(year) + '01-' + str(year) + '12.txt' # raw data path
+# # get ids for insolation stations       
+# for year in range(startYear, endYear+1): # range function goes up to but NOT including the last value
+#     print("Finding insolation stations for %s" % (year))
+#     location = './raw_data/midas_radtob_' + str(year) + '01-' + str(year) + '12.txt' # raw data path
     
-    data = pd.read_csv(location, sep=",", header=None, usecols=[2,3,4,5,6,8]) # imports the text file  
+#     data = pd.read_csv(location, sep=",", header=None, usecols=[2,3,4,5,6,8]) # imports the text file  
 
-    # remove daily readings, leave only hourly
-    mask = data.iloc[:,1] == 1
-    data = data[mask]
+#     # remove daily readings, leave only hourly
+#     mask = data.iloc[:,1] == 1
+#     data = data[mask]
     
-    # Below two lines remove all data points which have not been quallity checked by MIDAS
-    mask = data.iloc[:,2] == 1
-    data = data[mask]
+#     # Below two lines remove all data points which have not been quallity checked by MIDAS
+#     mask = data.iloc[:,2] == 1
+#     data = data[mask]
     
-    # take data only from HCM - https://artefacts.ceda.ac.uk/badc_datadocs/ukmo-midas/met_domain.html
-    mask = data.iloc[:,3] == " HCM"
-    data = data[mask]  
+#     # take data only from HCM - https://artefacts.ceda.ac.uk/badc_datadocs/ukmo-midas/met_domain.html
+#     mask = data.iloc[:,3] == " HCM"
+#     data = data[mask]  
 
-    for station in data.iloc[:,4]:
-        if station not in insolationStations:
-            insolationStations.append(station)
+#     for station in data.iloc[:,4]:
+#         if station not in insolationStations:
+#             insolationStations.append(station)
       
         
-# get ids for weather stations        
-for year in range(startYear, endYear+1): # range function goes up to but NOT including the last value
-    print("Finding weather stations for %s" % (year))
-    location = './raw_data/midas_wxhrly_' + str(year) + '01-' + str(year) + '12.txt' # raw data path
+# # get ids for weather stations        
+# for year in range(startYear, endYear+1): # range function goes up to but NOT including the last value
+#     print("Finding weather stations for %s" % (year))
+#     location = './raw_data/midas_wxhrly_' + str(year) + '01-' + str(year) + '12.txt' # raw data path
     
-    data = pd.read_csv(location, sep=",", header=None, usecols=[0,3,4,5,9]) # imports the text file    
+#     data = pd.read_csv(location, sep=",", header=None, usecols=[0,3,4,5,9]) # imports the text file    
     
-    # Below two lines remove all data points which have not been quallity checked by MIDAS
-    mask = data.iloc[:,2] == 1
-    data = data[mask]
+#     # Below two lines remove all data points which have not been quallity checked by MIDAS
+#     mask = data.iloc[:,2] == 1
+#     data = data[mask]
     
-    # select only SYNOP data - https://artefacts.ceda.ac.uk/badc_datadocs/ukmo-midas/met_domain.html
-    mask = data.iloc[:,1] == " SYNOP"
-    data = data[mask]
+#     # select only SYNOP data - https://artefacts.ceda.ac.uk/badc_datadocs/ukmo-midas/met_domain.html
+#     mask = data.iloc[:,1] == " SYNOP"
+#     data = data[mask]
     
-    for station in data.iloc[:,3]:
-        if station not in weatherStations:
-            weatherStations.append(station) 
+#     for station in data.iloc[:,3]:
+#         if station not in weatherStations:
+#             weatherStations.append(station) 
  
         
-# get master list of all available stations for all weather types      
-for x in [rainfallStations,weatherStations,insolationStations]:
-    for station in x:
-        if station not in masterStations:
-            masterStations.append(station)
+# # get master list of all available stations for all weather types      
+# for x in [rainfallStations,weatherStations,insolationStations]:
+#     for station in x:
+#         if station not in masterStations:
+#             masterStations.append(station)
             
             
-######## Extract data from excel download from midas website (step 2) #########
+# ######## Extract data from excel download from midas website (step 2) #########
 
-stationDetails = pd.read_excel("./raw_data/excel_list_station_details.xlsx", skiprows=1)
+# stationDetails = pd.read_excel("./raw_data/excel_list_station_details.xlsx", skiprows=1)
 
-stationDetails['weather collected (?)'] = False
-stationDetails['insolation collected (?)'] = False
-stationDetails['rainfall collected (?)'] = False
+# stationDetails['weather collected (?)'] = False
+# stationDetails['insolation collected (?)'] = False
+# stationDetails['rainfall collected (?)'] = False
 
-for row in range(len(stationDetails)):
+# for row in range(len(stationDetails)):
     
-    stationId = stationDetails.loc[row, "src_id"]
+#     stationId = stationDetails.loc[row, "src_id"]
     
-    if stationId in weatherStations:
-        stationDetails.loc[row, 'weather collected (?)'] = True
-    if stationId in insolationStations:
-        stationDetails.loc[row, 'insolation collected (?)'] = True
-    if stationId in rainfallStations:
-        stationDetails.loc[row, 'rainfall collected (?)'] = True
+#     if stationId in weatherStations:
+#         stationDetails.loc[row, 'weather collected (?)'] = True
+#     if stationId in insolationStations:
+#         stationDetails.loc[row, 'insolation collected (?)'] = True
+#     if stationId in rainfallStations:
+#         stationDetails.loc[row, 'rainfall collected (?)'] = True
 
 
-stationDetails.drop(columns=["Area type"], inplace=True)
-stationDetails.to_excel("./raw_data/processed_midas_station_details_May2021.xlsx")
+# stationDetails.drop(columns=["Area type"], inplace=True)
+# stationDetails.to_excel("./raw_data/processed_midas_station_details_May2021.xlsx")
 
 
 ######## STEP 3 ###################################
@@ -135,7 +137,7 @@ sqlite3.register_adapter(np.int64, int)
 sqlite3.register_adapter(np.int32, int)    
 
 
-conn = sqlite3.connect('Weather_DB.sqlite')     
+conn = sqlite3.connect(databaseName)     
 cur = conn.cursor()
 
 #Below code generates the table in the sqlite database

@@ -18,7 +18,7 @@ sqlite3.register_adapter(np.float32, float)
 sqlite3.register_adapter(np.int64, int)
 sqlite3.register_adapter(np.int32, int)    
 
-db_path = 'Weather_DB.sqlite'
+databaseName = 'test.sqlite'
 
 def timestamp2unix(val): # calcualtes unix time (number of seconds since 1970) from timestamp
     time_count = datetime.strptime('1970-01-01 00:00', '%Y-%m-%d %H:%M')
@@ -31,7 +31,7 @@ def timestamp2unix(val): # calcualtes unix time (number of seconds since 1970) f
 
 def weather2sql(startYear, endYear):
     
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(databaseName)
     cur = conn.cursor()
     
     #Below code generates the table in the sqlite database
@@ -99,7 +99,7 @@ def weather2sql(startYear, endYear):
 
 
 def insolation2sql(startYear, endYear):
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(databaseName)
     cur = conn.cursor()
     
     #Below code generates the table in the sqlite database if one with the same name doesn't already exist
@@ -153,7 +153,7 @@ def insolation2sql(startYear, endYear):
         
 
 def rainfall2sql(startYear, endYear):
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(databaseName)
     cur = conn.cursor()
     
     #Below code generates the table in the sqlite database
@@ -210,7 +210,7 @@ def rainfall2sql(startYear, endYear):
 ########################### USER INPUTS ######################################
 
 ## define start and end year you want to download data for
-startYear = 2015 
+startYear = 2021
 endYear = 2021
 
 
