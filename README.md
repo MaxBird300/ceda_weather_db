@@ -11,8 +11,8 @@ This code allows you to:
 
 # Instructions for use
 
-- Setup a Python environment setup using the attached requirements.txt file
 - Clone this repository into a local directory
+- Setup a Python environment using the attached requirements.txt file
 - Open Databases/config.py and fill in your CEDA account username and password
 - Run Databases/download_midas_data.py for the chosen datatypes and time period
 - Run Databases/get_midas_stations.py to create a table in your database detailing each weather station available
