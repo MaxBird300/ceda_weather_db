@@ -13,7 +13,7 @@ Created on Thu May 13 10:13:54 2021
 """
 import ftplib
 import os
-from config_private import config
+from config import config
 
 def downloadCedaData(start_year, end_year, dataNames=["insolation","weather","rainfall"]):
     
