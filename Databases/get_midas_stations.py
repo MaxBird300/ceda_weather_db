@@ -22,8 +22,7 @@ import numpy as np
 
 startYear = 2021
 endYear = 2021
-# databaseName = 'Weather_DB.sqlite'
-databaseName = 'test.sqlite'
+databaseName = 'Weather_DB.sqlite'
 
 rainfallStations = []
 weatherStations = []
