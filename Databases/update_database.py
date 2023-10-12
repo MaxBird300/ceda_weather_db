@@ -18,7 +18,7 @@ sqlite3.register_adapter(np.float32, float)
 sqlite3.register_adapter(np.int64, int)
 sqlite3.register_adapter(np.int32, int)    
 
-databaseName = 'test.sqlite'
+databaseName = 'Weather_DB.sqlite'
 
 def timestamp2unix(val): # calcualtes unix time (number of seconds since 1970) from timestamp
     time_count = datetime.strptime('1970-01-01 00:00', '%Y-%m-%d %H:%M')
